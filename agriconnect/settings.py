@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'agriconnect.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': getenv('DATABASE_ENGINE'),
         'NAME': getenv('DATABASE_NAME'),
         'USER': getenv('DATABASE_USER'),
         'PASSWORD': getenv('DATABASE_PASSWORD'),

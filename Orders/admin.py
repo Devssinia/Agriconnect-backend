@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from Farmers.models import Farmer
+from Farmers.models import Farmers
 from Users.models import CustomUser
 
 # Register your models here.
 admin.site.register(CustomUser)
-admin.site.register(Farmer)
+admin.site.register(Farmers)
