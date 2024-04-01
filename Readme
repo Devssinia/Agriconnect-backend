@@ -1,7 +1,8 @@
-Here are some alternatives to models.CASCADE:
-
+## Here are some alternatives to models.CASCADE:
 PROTECT: prevent the parent to be deleted as far as there is child
 SET_NULL: make the child referenced object as null as far as it us nullable
 SET_DEFAULT: this sets the default value as far as there is default value set
 SET: pass the value on_delete to do this action
 DO_NOTHING: do nothing it is not recommended way in django
+## Auth Source
+[Auth Website](https://medium.com/@ronakchitlangya1997/jwt-authentication-with-react-js-and-django-c034aae1e60d)
