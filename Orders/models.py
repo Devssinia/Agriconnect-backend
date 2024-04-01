@@ -15,7 +15,7 @@ class Transactions(models.Model):
     email = models.EmailField()
     currency= models.CharField(max_length=3)
     amount = models.DecimalField(max_digits=9, decimal_places=6)
-    status = models.CharField()
+    status = models.CharField(max_length=255)
 
 class Orders(models.Model):
     merchant_id = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
@@ -26,8 +26,8 @@ class Orders(models.Model):
     is_delivered = models.BooleanField(default=False)
     date_of_delivery = models.DateTimeField()
     expected_delivery_date = models.DateTimeField()
-    signiture = models.CharField()
+    signiture = models.CharField(max_length=255)
     delivery_address_latitude = models.DecimalField(max_digits=9, decimal_places=6)
     delivery_address_longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    delivery_address_name = models.CharField()
+    delivery_address_name = models.CharField(max_length=255)
 

@@ -19,4 +19,4 @@ class Prodcuts(models.Model):
     image1 = models.ImageField(upload_to='uploads/products')
     image2 = models.ImageField(upload_to='uploads/products')
     image3 = models.ImageField(upload_to='uploads/products')
-    product_description = models.CharField(null=True)
+    product_description = models.CharField(null=True,max_length=255)
