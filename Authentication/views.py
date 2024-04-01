@@ -21,15 +21,19 @@ class LogoutView(APIView):
             return Response({'message': 'Failed to log out'}, status=status.HTTP_400_BAD_REQUEST)
 
 class ChangePasswordView(APIView):
-    User = get_user_model()
     permission_classes = (IsAuthenticated,)
+
     def post(self, request):
+        User = get_user_model()
+        phone_number = request.data.get('phone_no')
+        print(f"Phone Number from Request: {phone_number}")  # Debugging statement
         try:
-            phone_number = request.data.get('phone_no')
             user = User.objects.get(phone_no=phone_number)
+            print(f"User Found: {user}")  # Debugging statement
             new_password = request.data.get('new_password')
             user.set_password(new_password)
             user.save()
             return Response({'message': 'Password Updated Successfully'}, status=status.HTTP_200_OK)        
         except Exception as e: 
-            return Response({'message': 'Unable to update password'}, status=status.HTTP_400_BAD_REQUEST)
+            print(f"Error: {e}")  # Debugging statement
+            return Response({'message': f'Unable to update password {e}'}, status=status.HTTP_400_BAD_REQUEST)

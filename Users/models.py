@@ -30,15 +30,16 @@ class Role(models.Model):
         return self.role_name
     
 class CustomUser(AbstractUser):
-    full_name = models.CharField(max_length=255)
+    full_name = models.CharField(max_length=255,null=True)
     phone_no = models.CharField(max_length=20, unique=True)
-    location_latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    location_longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    location_name = models.CharField(max_length=255)
-    profile_image = models.CharField(max_length=255)
-    role = models.ForeignKey(Role, on_delete=models.CASCADE)
+    location_latitude = models.DecimalField(max_digits=9, decimal_places=6,null=True)
+    location_longitude = models.DecimalField(max_digits=9, decimal_places=6,null=True)
+    location_name = models.CharField(max_length=255,null=True)
+    profile_image = models.CharField(max_length=255,null=True)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE,null=True)
     
     USERNAME_FIELD = "phone_no"
+    
     objects = CustomUserManager()  # Set the custom manager here
     # Specify custom related_names to avoid clashes
     groups = models.ManyToManyField(
