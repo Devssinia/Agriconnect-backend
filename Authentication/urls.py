@@ -13,5 +13,8 @@ urlpatterns = [
           jwt_views.TokenRefreshView.as_view(), 
           name ='token_refresh'),
      path("logout/", views.LogoutView.as_view(),),
-     path("change_password/", views.ChangePasswordView.as_view(),)
+     path("change_password/", views.ChangePasswordView.as_view(),),
+     path("reset_request/", views.PasswordResetRequestView.as_view(),),
+     path("reset_confirm/", views.PasswordResetVerifyView.as_view(),)
+
 ]
