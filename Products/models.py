@@ -9,7 +9,7 @@ class UOMs(models.Model):
 class Categories(models.Model):
     name = models.CharField(max_length=255)
 
-class Prodcuts(models.Model):
+class Product(models.Model):
     name = models.CharField(max_length=255)
     uom = models.ForeignKey(UOMs, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Categories, on_delete=models.SET_NULL, null=True)

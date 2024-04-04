@@ -14,7 +14,7 @@ from Users.models import CustomUser
 from .serializers import UserSerializer
 # Ad
 @api_view(['GET'])
-def get_user_one(request, pk):
+def users_by_pk(request, pk):
     try:
         user = CustomUser.objects.get(pk=pk)
         serializer = CustomUserSerializer(user)
@@ -33,7 +33,7 @@ def users(request):
 
 
 @api_view(['POST'])
-def create_user_one(request):
+def insert_users_one(request):
     serializer = CustomUserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.validated_data['password']
@@ -42,7 +42,7 @@ def create_user_one(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT', 'PATCH'])
-def update_user_one(request, pk):
+def update_users_by_pk(request, pk):
     try:
         user = CustomUser.objects.get(pk=pk)
     except CustomUser.DoesNotExist:
@@ -55,7 +55,7 @@ def update_user_one(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
-def delete_user_one(request, pk):
+def delete_users_by_pk(request, pk):
     try:
         user = CustomUser.objects.get(pk=pk)
         serilzer=CustomUserSerializer(user)
