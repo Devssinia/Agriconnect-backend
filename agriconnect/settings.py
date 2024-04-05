@@ -49,13 +49,29 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
-    'Authentication'
+    'Authentication',
+    "Payments"
 ]
 # for backwards compatibility
 CORS_ORIGIN_ALLOW_ALL = True
 APPEND_SLASH=False
 AUTH_USER_MODEL = 'Users.CustomUser'
 # End of Single based setting lines
+CHAPA_SECRET= getenv('CHAPA_SECRET')
+
+CHAPA_API_URL = ''
+
+CHAPA_API_VERSION = 'v1'
+
+CHAPA_TRANSACTION_MODEL='Payment.ChapaTransactionMixin'
+# twilio accout settings
+TWILIO_ACCOUNT_SID =  getenv('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN =  getenv('TWILIO_AUTH_TOKEN')
+TWILIO_PHONE_NUMBER =  getenv('TWILIO_PHONE_NUMBER')
+
+
+# end of chapa transaction settings
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -83,9 +99,6 @@ SIMPLE_JWT = {
 
 # settings.py
 
-TWILIO_ACCOUNT_SID =  getenv('TWILIO_ACCOUNT_SID')
-TWILIO_AUTH_TOKEN =  getenv('TWILIO_AUTH_TOKEN')
-TWILIO_PHONE_NUMBER =  getenv('TWILIO_PHONE_NUMBER')
 
 
 

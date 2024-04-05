@@ -1,8 +1,8 @@
 from django.db import models
-
 from Farmers.models import FarmerProducts
 from Users.models import CustomUser
 from Products.models import Categories
+
 
 class OrderProducts(models.Model):
     farm_product_id = models.ForeignKey(FarmerProducts, on_delete=models.SET_NULL, null=True)
