@@ -8,8 +8,10 @@ from rest_framework import status
 from Payments.serializers import TransactionSerializer
 @api_view(['POST'])
 def accept_payment(request):
+    
     secret_key = settings.CHAPA_SECRET  # Retrieve secret key from Django settings
     tx_ref = generate_transaction_reference()  # Define your function to generate transaction reference
+    print(f"transaction referenvcve is {tx_ref}")
     headers = {
         'Authorization': f'Bearer {secret_key}',
         'Content-Type': 'application/json',
@@ -41,6 +43,7 @@ def accept_payment(request):
         # Serialize and save combined data
         serializer = TransactionSerializer(data=combined_data)
         if serializer.is_valid():
+            print("until this valid")
             transaction = serializer.save()
             return Response(response_data, status=status.HTTP_201_CREATED)
         else:
@@ -52,4 +55,3 @@ def accept_payment(request):
 
 def generate_transaction_reference():
         return str(uuid.uuid4())
-    # Define your logic to generate a transaction reference here
