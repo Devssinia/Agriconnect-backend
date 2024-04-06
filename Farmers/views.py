@@ -25,7 +25,9 @@ def farmers(request):
 
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated, ))
 def insert_farmers_one(request):
+
     serializer = FarmerSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
@@ -33,7 +35,7 @@ def insert_farmers_one(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT', 'PATCH'])
-# @permission_classes((IsAuthenticated, ))
+@permission_classes((IsAuthenticated, ))
 def update_farmers_by_pk(request, pk):
     try:
         user = Farmer.objects.get(pk=pk)
@@ -48,6 +50,7 @@ def update_farmers_by_pk(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
+@permission_classes((IsAuthenticated))
 def delete_farmers_by_pk(request, pk):
     # @permission_classes((IsAuthenticated, ))
     try:

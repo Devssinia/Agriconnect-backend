@@ -5,9 +5,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.conf import settings
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
 from Payments.models import PaymentTransaction
 from Payments.serializers import TransactionSerializer
 @api_view(['POST'])
+@permission_classes((IsAuthenticated, ))
 def accept_payment(request):
     global tx_ref
     secret_key = settings.CHAPA_SECRET  # Retrieve secret key from Django settings
@@ -61,6 +64,7 @@ def generate_transaction_reference():
         return str(uuid.uuid4())
 
 @api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
 def verifyPayment(request):
     print("at least this is excuted")
     
