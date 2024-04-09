@@ -5,8 +5,6 @@ from django.core.validators import RegexValidator, validate_email
 from django.conf import settings
 
 
-
-
 class CustomUserManager(BaseUserManager):
     def create_user(self, phone_no, full_name=None, password=None, **extra_fields):
         if not phone_no:

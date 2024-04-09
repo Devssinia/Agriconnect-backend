@@ -17,7 +17,7 @@ class Transactions(models.Model):
     amount = models.DecimalField(max_digits=9, decimal_places=6)
     status = models.CharField(max_length=255)
 
-class Orders(models.Model):
+class Order(models.Model):
     merchant_id = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     # agent_id = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     total_amount = models.ForeignKey(Categories, on_delete=models.SET_NULL, null=True)

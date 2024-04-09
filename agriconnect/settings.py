@@ -99,10 +99,6 @@ SIMPLE_JWT = {
 
 # settings.py
 
-
-
-
-
 ROOT_URLCONF = 'agriconnect.urls'
 
 TEMPLATES = [

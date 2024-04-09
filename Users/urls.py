@@ -7,5 +7,4 @@ urlpatterns = [
     path('delete_users_by_pk/<int:pk>/',userViews.delete_users_by_pk),
     path('update_users_by_pk/<int:pk>/',userViews.update_users_by_pk),
     path('register/', userViews.UserViewSet.as_view({'post': 'create'}), name='register'),
-
 ]
