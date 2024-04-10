@@ -60,12 +60,10 @@ INSTALLED_APPS = [
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
-        'api_key': {
-            'type': 'apiKey',
-            'in': 'header',
-            'name': 'Authorization'
+        'Basic': {
+            'type': 'basic'
         }
-    },
+    }
 }
 # for backwards compatibility
 CORS_ORIGIN_ALLOW_ALL = True
