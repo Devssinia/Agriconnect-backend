@@ -2,8 +2,8 @@ from Farmers.models import Farmer
 from Farmers.serializers import FarmerSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import status, viewsets
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import permission_classes
 @api_view(['GET'])
 def farmers_by_pk(request,pk):
@@ -27,7 +27,7 @@ def farmers(request):
 @api_view(['POST'])
 @permission_classes((IsAuthenticated, ))
 def insert_farmers_one(request):
-
+    
     serializer = FarmerSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
@@ -63,4 +63,19 @@ def delete_farmers_by_pk(request, pk):
     user.delete()
     return Response(serilzer.data,status=status.HTTP_204_NO_CONTENT) 
 
+
+
+# class FarmerViewSet(viewsets.ModelViewSet):
+#     queryset = Farmer.objects.all()
+#     serializer_class = FarmerSerializer
+#     permission_classes = [AllowAny]
+    
+#     def get_permissions(self):
+#         if self.action in ('create', 'update', 'destroy'):
+#             return [IsAuthenticated()]
+            
+#         return super().get_permissions()
+    
+    
+    
 

@@ -50,8 +50,20 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'Authentication',
-    "Payments"
+    "Payments",
+    "drf_yasg",
 ]
+
+
+# 
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Basic': {
+            'type': 'basic'
+        }
+    }
+}
 # for backwards compatibility
 CORS_ORIGIN_ALLOW_ALL = True
 APPEND_SLASH=False
@@ -82,6 +94,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
 
 REST_FRAMEWORK = {
      'DEFAULT_AUTHENTICATION_CLASSES': [

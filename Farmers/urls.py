@@ -8,3 +8,6 @@ urlpatterns = [
     path('update_farmers_by_pk/<int:pk>/',farmerViews.update_farmers_by_pk),
     path('delete_farmers_by_pk/<int:pk>/',farmerViews.delete_farmers_by_pk),
 ]
+
+
+

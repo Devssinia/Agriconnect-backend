@@ -6,3 +6,12 @@ SET: pass the value on_delete to do this action
 DO_NOTHING: do nothing it is not recommended way in django
 ## Auth Source
 [Auth Website](https://medium.com/@ronakchitlangya1997/jwt-authentication-with-react-js-and-django-c034aae1e60d)
+
+
+Swagger documentation:
+https://medium.com/@chodvadiyasaurabh/creating-interactive-api-documentation-with-swagger-ui-in-django-53fa9e9898dc
+
+
+Deploy Django on vps documentation
+
+https://testdriven.io/blog/drf-views-part-3/
