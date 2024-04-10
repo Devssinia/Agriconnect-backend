@@ -27,11 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-4x)qqzp0rtd2vn8x0df#!jk6lv3ob$p$fg!^==o_pc_g@c1efr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['78.47.206.89']
-
-ALLOWED_HOSTS = []
 
 MAX_OTP_TRY = 3
 
@@ -62,10 +60,12 @@ INSTALLED_APPS = [
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
-        'Basic': {
-            'type': 'basic'
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
         }
-    }
+    },
 }
 # for backwards compatibility
 CORS_ORIGIN_ALLOW_ALL = True
