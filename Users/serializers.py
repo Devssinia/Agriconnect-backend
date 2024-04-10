@@ -1,5 +1,5 @@
 # serializers.py
-import datetime
+from datetime import datetime, timedelta
 import random
 from rest_framework import serializers
 from utils import send_sms
@@ -30,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         otp = random.randint(1000, 9999)
-        otp_expiry = datetime.now() + datetime.timedelta(minutes = 10)
+        otp_expiry = datetime.now() + timedelta(minutes=10)
         user = CustomUser.objects.create(**validated_data)
         if otp:
             print("otp", otp)
