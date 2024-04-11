@@ -28,7 +28,7 @@ def products(request):
     return Response(serializer.data)
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def insert_product_one(request):
     serializer = ProductSerializer(data=request.data)
     if serializer.is_valid():
@@ -38,7 +38,7 @@ def insert_product_one(request):
 
 
 @api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def delete_product_by_pk(request, pk):
     try:
         product = Product.objects.get(pk=pk)
@@ -50,7 +50,7 @@ def delete_product_by_pk(request, pk):
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def update_product_by_pk(request, pk):
     try:
         product = Product.objects.get(pk=pk)
@@ -64,8 +64,8 @@ def update_product_by_pk(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
-@authentication_classes([BasicAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([BasicAuthentication])
+# @permission_classes([IsAuthenticated])
 def insert_multiple_products(request):
     serializer = ProductSerializer(data=request.data, many=True)
     if serializer.is_valid():

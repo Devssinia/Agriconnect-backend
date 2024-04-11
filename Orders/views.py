@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
-
 from Orders.models import Order, OrderProducts, Transactions
 from Orders.serializers import OrderSerializer, OrderProductsSerializer, TransactionsSerializer
 
@@ -30,7 +29,7 @@ def orders(request):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def insert_order_one(request):
     serializer = OrderSerializer(data=request.data)
     if serializer.is_valid():
@@ -41,7 +40,7 @@ def insert_order_one(request):
 
 
 @api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def delete_order_by_pk(request, pk):
     try:
         order = Order.objects.get(pk=pk)
@@ -54,7 +53,7 @@ def delete_order_by_pk(request, pk):
     
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def update_order_by_pk(request, pk):
     try:
         order = Order.objects.get(pk=pk)
@@ -69,7 +68,7 @@ def update_order_by_pk(request, pk):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def insert_multiple_orders(request):
     serializer = OrderSerializer(data=request.data, many=True)
     if serializer.is_valid():
@@ -106,7 +105,7 @@ def order_products(request):
     return Response(serializer.data)
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def insert_order_product_one(request):
     serializer = OrderProductsSerializer(data=request.data)
     if serializer.is_valid():
@@ -115,7 +114,7 @@ def insert_order_product_one(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def delete_order_product_by_pk(request, pk):
     try:
         order_product = OrderProducts.objects.get(pk=pk)
@@ -127,7 +126,7 @@ def delete_order_product_by_pk(request, pk):
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def update_order_product_by_pk(request, pk):
     try:
         order_product = OrderProducts.objects.get(pk=pk)
@@ -141,7 +140,7 @@ def update_order_product_by_pk(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def insert_multiple_order_products(request):
     serializer = OrderProductsSerializer(data=request.data, many=True)
     if serializer.is_valid():
