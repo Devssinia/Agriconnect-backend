@@ -15,3 +15,6 @@ https://medium.com/@chodvadiyasaurabh/creating-interactive-api-documentation-wit
 Deploy Django on vps documentation
 
 https://testdriven.io/blog/drf-views-part-3/
+
+to install only nessary dependencies
+pipreqs . --force
