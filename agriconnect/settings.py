@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'Authentication',
     "Payments",
     "drf_yasg",
-    "rest_framework_swagger", 
+    "rest_framework_swagger"
 ]
 
 
