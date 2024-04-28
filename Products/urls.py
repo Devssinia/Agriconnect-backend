@@ -9,6 +9,7 @@ urlpatterns = [
     path('update_users_by_pk/<int:pk>/',crudApi.update_object_by_pk),
     
     path('', farmerViews.products, name='products'),
+    path('farmerproducts', farmerViews.farmers_with_products, name='products_and_farmers'),
     path('product_by_pk/<int:pk>/', farmerViews.products_by_pk, name='product_by_pk'),
     path('insert_product_one/', farmerViews.insert_product_one, name='insert_product_one'),
     path('delete_product_by_pk/<int:pk>/', farmerViews.delete_product_by_pk, name='delete_product_by_pk'),

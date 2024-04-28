@@ -13,7 +13,6 @@ def farmers_by_pk(request,pk):
         return Response(serializer.data)
     except Farmer.DoesNotExist:
         return Response({'error': 'Farmer not found'}, status=status.HTTP_404_NOT_FOUND)
-
 @api_view(['GET'])
 def farmers(request):
     try:
@@ -23,7 +22,15 @@ def farmers(request):
     except Farmer.DoesNotExist:
         return Response({'error': 'Users not found'}, status=status.HTTP_404_NOT_FOUND)
 
+@api_view(['GET'])
+def farmers_with_products(request):
+    try:
+        farmers = Farmer.objects.all()
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    serializer = FarmerSerializer(farmers, many=True)
+    return Response(serializer.data)
 @api_view(['POST'])
 # @permission_classes((IsAuthenticated, ))
 def insert_farmers_one(request):
