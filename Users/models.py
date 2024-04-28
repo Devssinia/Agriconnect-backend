@@ -1,30 +1,51 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth.models import BaseUserManager
-from django.core.validators import RegexValidator, validate_email
 from django.conf import settings
+from django.contrib.auth import get_user_model
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, phone_no, full_name=None, password=None, **extra_fields):
+    def create_user(self, phone_no, password=None):
+        """
+        Creates and saves a User with the given email and password.
+        """
         if not phone_no:
-            raise ValueError(_('The phone number must be set'))
-        
-        user = self.model(phone_no=phone_no, username=phone_no, full_name=full_name, **extra_fields)
+            raise ValueError('Users must have a phone')
+
+        user = self.model(
+            phone_no=phone_no,
+        )
+
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, phone_no, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+    def create_staffuser(self, phone_no, password):
+        """
+        Creates and saves a staff user with the given email and password.
+        """
+        user = self.create_user(
+            phone_no,
+            password=password,
+        )
+        user.staff = True
+        user.save(using=self._db)
+        return user
 
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError(_('Superuser must have is_staff=True.'))
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError(_('Superuser must have is_superuser=True.'))
+    def create_superuser(self, phone_no, password):
+        """
+        Creates and saves a superuser with the given email and password.
+        """
+        user = self.create_user(
+            phone_no,
+            password=password,
+        )
+        user.staff = True
+        user.admin = True
+        user.save(using=self._db)
+        return user
 
-        return self.create_user(phone_no, password, **extra_fields)
 
 class Role(models.Model):
     role_name = models.CharField(max_length=255)
@@ -33,6 +54,8 @@ class Role(models.Model):
         return self.role_name
     
 class CustomUser(AbstractUser):
+    username = None
+    
     full_name = models.CharField(max_length=255,null=True)
     phone_no = models.CharField(max_length=20, unique=True)
     location_latitude = models.DecimalField(max_digits=9, decimal_places=6,null=True)
@@ -52,26 +75,8 @@ class CustomUser(AbstractUser):
     objects = CustomUserManager()  # Set the custom manager here
 
 
-    # Specify custom related_names to avoid clashes
-    groups = models.ManyToManyField(
-        'auth.Group',
-        verbose_name='groups',
-        blank=True,
-        related_name='custom_user_groups'
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        verbose_name='user permissions',
-        blank=True,
-        related_name='custom_user_permissions'
-    )
-
     def __str__(self):
         return self.phone_no
     
-    def save(self, *args, **kwargs):
-        if not self.username:
-            self.username = self.phone_no
-        super().save(*args, **kwargs)
-
+   
 

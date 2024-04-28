@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-4x)qqzp0rtd2vn8x0df#!jk6lv3ob$p$fg!^==o_pc_g@c1efr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['78.47.206.89', '127.0.0.1']
+ALLOWED_HOSTS = ['78.47.206.89', '127.0.0.1',"localhost","192.168.137.70"]
 
 MAX_OTP_TRY = 3
 
@@ -69,7 +69,10 @@ SWAGGER_SETTINGS = {
 # for backwards compatibility
 CORS_ORIGIN_ALLOW_ALL = True
 APPEND_SLASH=False
-AUTH_USER_MODEL = 'Users.CustomUser'
+
+AUTH_USER_MODEL ='Users.CustomUser'
+
+AUTH_PROFILE_MODULE ='Users.CustomUser'
 # End of Single based setting lines
 CHAPA_SECRET= getenv('CHAPA_SECRET')
 
