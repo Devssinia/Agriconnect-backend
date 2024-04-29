@@ -33,13 +33,24 @@ def users(request):
 
 
 @api_view(['POST'])
-def insert_users_one(request):
-    serializer = CustomUserSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.validated_data['password']
-        user = serializer.save()
+def register(request):
+    # Extracting necessary data from request
+    full_name = request.data.get('full_name')
+    phone_no = request.data.get('phone_no')
+    password = request.data.get('password')
+    
+    # Validating data
+    if not (full_name and phone_no and password):
+        return Response({'error': 'Full name, phone number, and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Creating the user
+    try:
+        user = CustomUser.objects.create_user(phone_no=phone_no, full_name=full_name, password=password)
+        serializer = CustomUserSerializer(user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
 
 @api_view(['PUT', 'PATCH'])
 def update_users_by_pk(request, pk):

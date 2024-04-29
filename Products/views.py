@@ -5,8 +5,8 @@ from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from Farmers.models import Farmer, FarmerProducts
-from Products.models import Product
-from Products.serializers import FarmerProductsSerializer, FarmerSerializer, ProductSerializer
+from Products.models import Categories, Product, UOMs
+from Products.serializers import  CategoriesSerializer, ProductSerializer, UOMsSerializer
 
 @api_view(['GET'])
 def products_by_pk(request, pk):
@@ -126,3 +126,66 @@ def farmers_with_products(request):
     return Response(data)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+#uom views
+
+@api_view(['GET'])
+def uoms(request):
+    try:
+        uoms = UOMs.objects.all()
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    serializer = UOMsSerializer(uoms, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def insert_uoms_one(request):
+    serializer = UOMsSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
+
+
+
+
+#categories
+#uom views
+
+@api_view(['GET'])
+def categories(request):
+    try:
+        uoms = Categories.objects.all()
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    serializer = CategoriesSerializer(uoms, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def insert_categories_one(request):
+    serializer = CategoriesSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

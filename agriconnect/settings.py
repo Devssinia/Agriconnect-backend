@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-4x)qqzp0rtd2vn8x0df#!jk6lv3ob$p$fg!^==o_pc_g@c1efr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['78.47.206.89', '127.0.0.1',"localhost","192.168.137.70"]
+ALLOWED_HOSTS = ['*']
 
 MAX_OTP_TRY = 3
 
@@ -52,8 +52,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'Authentication',
     "Payments",
-    "drf_yasg",
     "rest_framework_swagger",
+    "drf_yasg",
 ]
 
 
@@ -73,7 +73,9 @@ APPEND_SLASH=False
 AUTH_USER_MODEL ='Users.CustomUser'
 
 AUTH_PROFILE_MODULE ='Users.CustomUser'
-# End of Single based setting lines
+
+
+# Chapa settings
 CHAPA_SECRET= getenv('CHAPA_SECRET')
 
 CHAPA_API_URL = ''
@@ -81,6 +83,8 @@ CHAPA_API_URL = ''
 CHAPA_API_VERSION = 'v1'
 
 CHAPA_TRANSACTION_MODEL='Payment.ChapaTransactionMixin'
+
+
 # twilio accout settings
 TWILIO_ACCOUNT_SID =  getenv('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN =  getenv('TWILIO_AUTH_TOKEN')

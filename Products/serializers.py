@@ -8,20 +8,19 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
-class FarmerSerializer(serializers.ModelSerializer):
-    # products = ProductSerializer(source='farmerproducts_set',many=True)
+
+class UOMsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Farmer
+        model = UOMs
         fields = '__all__'
 
 
-class FarmerProductsSerializer(serializers.ModelSerializer):
-    farmer_id = serializers.PrimaryKeyRelatedField(source='farmer', queryset=Farmer.objects.all())
-    product_id = serializers.PrimaryKeyRelatedField(source='product', queryset=Product.objects.all())
 
+class CategoriesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = FarmerProducts
-        fields = ['id', 'rate', 'farmer_id', 'product_id', 'uom']
+        model = Categories
+        fields = '__all__'
+
 
 
         

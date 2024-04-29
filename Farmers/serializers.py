@@ -4,16 +4,12 @@ from .models import Farmer, FarmerProducts
 
 
 class FarmerSerializer(serializers.ModelSerializer):
-    # products = ProductSerializer(source='farmerproducts_set', many=True)
     class Meta:
         model = Farmer
-        fields = ['id', 'full_name', 'phone_no', 'location_latitude', 'location_longitude', 
-                  'location_name', 'profile_image', 'products']
+        fields = '__all__'
 
 
-# class FarmerProductsSerializer(serializers.ModelSerializer):
-#     uom = serializers.StringRelatedField()
-
-#     class Meta:
-#         model = FarmerProducts
-#         fields = ['product', 'uom', 'rate']
+class FarmerProductsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FarmerProducts
+        fields = '__all__'
