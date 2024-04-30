@@ -33,6 +33,9 @@ ALLOWED_HOSTS = ['*']
 
 MAX_OTP_TRY = 3
 
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+
 
 # Application definition
 
@@ -77,6 +80,7 @@ AUTH_PROFILE_MODULE ='Users.CustomUser'
 
 # Chapa settings
 CHAPA_SECRET= getenv('CHAPA_SECRET')
+PORT= getenv('PORT')
 
 CHAPA_API_URL = ''
 
@@ -195,6 +199,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'static/')
+
+MEDIA_ROOT = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 
 # Default primary key field type

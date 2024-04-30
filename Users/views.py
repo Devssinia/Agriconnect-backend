@@ -4,6 +4,12 @@ from rest_framework.decorators import api_view,action
 from rest_framework.response import Response
 from rest_framework import status,viewsets
 
+import datetime
+from datetime import timedelta
+
+import random
+
+
 
 import datetime
 import random
@@ -33,20 +39,51 @@ def users(request):
 
 
 @api_view(['POST'])
+def insert_users_one(request):
+    
+    serializer = UserSerializer(data=request.data)
+    if serializer.is_valid():
+        user = serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
 def register(request):
     # Extracting necessary data from request
     full_name = request.data.get('full_name')
     phone_no = request.data.get('phone_no')
     password = request.data.get('password')
+
+    #creating otp
+    # otp = random.randint(1000, 9999)
+    # otp_expiry = datetime.now() + timedelta(minutes=10)
     
     # Validating data
     if not (full_name and phone_no and password):
         return Response({'error': 'Full name, phone number, and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
     
+    #validate and send the otp
+    # if otp:
+    #     print("otp", otp)
+    #     send_sms(phone_no, otp)
+    # else:
+    #     print("the otp is not recieved by the phone")
+
     # Creating the user
     try:
+        print("....................................11111")
         user = CustomUser.objects.create_user(phone_no=phone_no, full_name=full_name, password=password)
+
+        print("....................................2222")
+
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         serializer = CustomUserSerializer(user)
+        print("....................................3333")
+
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)

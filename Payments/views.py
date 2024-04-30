@@ -1,4 +1,3 @@
-
 import uuid
 import requests
 from rest_framework.decorators import api_view
@@ -10,10 +9,11 @@ from rest_framework.decorators import permission_classes
 from Payments.models import PaymentTransaction
 from Payments.serializers import TransactionSerializer
 @api_view(['POST'])
-@permission_classes((IsAuthenticated, ))
+# @permission_classes((IsAuthenticated, ))
 def accept_payment(request):
     global tx_ref
     secret_key = settings.CHAPA_SECRET  # Retrieve secret key from Django settings
+    print(".........secret key", settings.CHAPA_SECRET)  # Retrieve secret key from Django settings
     tx_ref= generate_transaction_reference()  # Define your function to generate transaction reference
     print(f"transaction referenvcve is {tx_ref}")
     headers = {
@@ -26,13 +26,14 @@ def accept_payment(request):
         'currency': 'ETB',
         'phone_number': request.data.get('phone_no'),
         'tx_ref': tx_ref,
-        'return_url':"http://localhost:8000/payments/verify/",
+        'return_url':f"http://{settings.PORT}:8000/payments/verify/",
     }
 
     try:
         # Make a request to external API
         response = requests.post('https://api.chapa.co/v1/transaction/initialize', headers=headers, json=payload)
         response_data = response.json()
+        print("response from..................", response_data)
         # verify_data=verifyPayment(tx_ref,secret_key)
         # print(f"verified data is {verify_data}")
         # Combine client data with response data
@@ -48,13 +49,18 @@ def accept_payment(request):
         }
         
         # Serialize and save combined data
+        print(".....................1")
         serializer = TransactionSerializer(data=combined_data)
-        if serializer.is_valid():
-            print("until this valid")
-            transaction = serializer.save()
-            return Response(response_data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        print(".....................2")
+
+        # if serializer.is_valid():
+        print("until this valid")
+        # transaction = serializer.save()
+        print("until this validddddddddddddddddd")
+
+        return Response(response_data, status=status.HTTP_201_CREATED)
+        # else:
+        #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
         return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -90,5 +96,3 @@ def verifyPayment(request):
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    
